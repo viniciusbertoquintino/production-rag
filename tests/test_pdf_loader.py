@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 from fpdf import FPDF
 
-from app.ingestion import PDFLoader, PDFPageContent
+from app.ingestion import Document, PDFLoader
 
 SAMPLE_PDF_PATH = Path("data/sample/politica-ferias.pdf")
 
@@ -26,7 +26,8 @@ def test_pdf_loader_extracts_text_filename_and_page(sample_pdf: Path) -> None:
     pages = PDFLoader().load(sample_pdf)
 
     assert len(pages) == 2
-    assert all(isinstance(page, PDFPageContent) for page in pages)
+    assert all(isinstance(page, Document) for page in pages)
+    assert pages[0].source_type == "pdf"
     assert pages[0].filename == "politica-ferias.pdf"
     assert pages[0].page == 1
     assert "Pagina 1" in pages[0].text

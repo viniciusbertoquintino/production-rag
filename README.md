@@ -113,8 +113,8 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 |---|---|
 | Projeto | Production RAG |
 | Status | Em desenvolvimento |
-| Última etapa concluída | P1.12 — loader para XLSX/CSV |
-| Próxima etapa | P1.13 — normalização em schema único |
+| Última etapa concluída | P1.13 — normalização em schema único |
+| Próxima etapa | P1.14 — chunking configurável |
 | Roadmap | Consulte `ROADMAP.md` |
 | Estratégia | Desenvolvimento incremental |
 | Commits | Conventional Commits |
@@ -124,7 +124,7 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 | Configuração | `.env.example` → copiar para `.env` (não versionado) |
 | LLM | `OpenAIProvider` (`OPENAI_API_KEY`, `OPENAI_MODEL`, `LLM_TIMEOUT_SECONDS`) |
 | Documentos de exemplo | `data/sample/` (5 arquivos + PDF + DOCX + CSV + XLSX) |
-| Ingestão | `PDFLoader`, `DOCXLoader`, `TabularLoader` (CSV/XLSX) |
+| Ingestão | loaders retornam `Document` normalizado (`PDFLoader`, `DOCXLoader`, `TabularLoader`) |
 
 > Esta seção deve ser mantida atualizada à medida que o projeto evoluir. O README não substitui o roadmap: ele apresenta o projeto para quem chega ao repositório pela primeira vez.
 
@@ -244,6 +244,7 @@ production-rag/
 │   ├── test_openai_provider.py
 │   ├── test_openai_provider_errors.py
 │   ├── test_docx_loader.py
+│   ├── test_document_normalization.py
 │   ├── test_pdf_loader.py
 │   ├── test_sample_documents.py
 │   ├── test_tabular_loader.py

@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 from openpyxl import Workbook
 
-from app.ingestion import TabularLoader, TabularRowContent
+from app.ingestion import Document, TabularLoader
 
 SAMPLE_CSV_PATH = Path("data/sample/processo-reembolso-despesas.csv")
 SAMPLE_XLSX_PATH = Path("data/sample/sla-suporte-interno.xlsx")
@@ -43,7 +43,8 @@ def test_tabular_loader_extracts_traceable_csv_rows(sample_csv: Path) -> None:
     rows = TabularLoader().load(sample_csv)
 
     assert len(rows) == 2
-    assert all(isinstance(row, TabularRowContent) for row in rows)
+    assert all(isinstance(row, Document) for row in rows)
+    assert rows[0].source_type == "csv"
     assert rows[0].filename == "reembolsos.csv"
     assert rows[0].sheet is None
     assert rows[0].row == 2
@@ -56,6 +57,7 @@ def test_tabular_loader_extracts_traceable_xlsx_rows_by_sheet(sample_xlsx: Path)
     rows = TabularLoader().load(sample_xlsx)
 
     assert len(rows) == 3
+    assert rows[0].source_type == "xlsx"
     assert rows[0].filename == "sla-suporte.xlsx"
     assert rows[0].sheet == "Prioridades"
     assert rows[0].row == 2

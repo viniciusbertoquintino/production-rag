@@ -48,7 +48,7 @@ Construir um RAG corporativo demonstrável, executável localmente e com caminho
   - Pronto quando: extrai texto + metadados básicos.
 - [x] **P1.12** Criar loader para XLSX/CSV.
   - Pronto quando: cada linha/aba gera conteúdo rastreável.
-- [ ] **P1.13** Normalizar documento em um schema único.
+- [x] **P1.13** Normalizar documento em um schema único.
   - Pronto quando: todos os loaders devolvem o mesmo tipo.
 - [ ] **P1.14** Implementar chunking configurável.
   - Pronto quando: tamanho e overlap são parâmetros.
