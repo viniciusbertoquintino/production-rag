@@ -113,14 +113,15 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 |---|---|
 | Projeto | Production RAG |
 | Status | Em desenvolvimento |
-| Última etapa concluída | P1.02 — estrutura `app/`, `tests/`, `data/`, `scripts/` |
-| Próxima etapa | P1.03 — variáveis com `.env.example` |
+| Última etapa concluída | P1.03 — variáveis com `.env.example` |
+| Próxima etapa | P1.04 — FastAPI com `GET /health` |
 | Roadmap | Consulte `ROADMAP.md` |
 | Estratégia | Desenvolvimento incremental |
 | Commits | Conventional Commits |
 | Python | 3.12+ |
 | Gerenciador | `uv` (`pyproject.toml` + `uv.lock`) |
 | Ambiente virtual | `.venv/` (criado por `uv sync`) |
+| Configuração | `.env.example` → copiar para `.env` (não versionado) |
 
 > Esta seção deve ser mantida atualizada à medida que o projeto evoluir. O README não substitui o roadmap: ele apresenta o projeto para quem chega ao repositório pela primeira vez.
 
@@ -132,7 +133,10 @@ Requisitos: Python 3.12+ e [`uv`](https://docs.astral.sh/uv/) instalado.
 git clone <repository-url>
 cd production-rag
 uv sync
+cp .env.example .env
 ```
+
+Edite `.env` com seus valores locais. O arquivo `.env` não é versionado; use `.env.example` como referência.
 
 Comandos úteis no estado atual:
 
@@ -141,7 +145,7 @@ uv run pytest
 uv run ruff check .
 ```
 
-A API, variáveis de ambiente e Docker serão documentados nas próximas microetapas do roadmap.
+A API e Docker serão documentados nas próximas microetapas do roadmap.
 
 ## API
 
@@ -197,14 +201,17 @@ Estrutura atual do repositório:
 ```text
 production-rag/
 ├── app/
-│   └── __init__.py
+│   ├── __init__.py
+│   └── settings.py
 ├── tests/
 │   ├── __init__.py
-│   └── test_imports.py
+│   ├── test_imports.py
+│   └── test_settings.py
 ├── data/
 ├── scripts/
 ├── .cursor/
 │   └── rules/
+├── .env.example
 ├── .gitignore
 ├── pyproject.toml
 ├── uv.lock
@@ -213,7 +220,7 @@ production-rag/
 └── SETUP.md
 ```
 
-O pacote `app` é instalado em modo editável via `uv sync`, permitindo imports sem hacks de `sys.path`.
+O pacote `app` é instalado em modo editável via `uv sync`, permitindo imports sem hacks de `sys.path`. Segredos ficam em `.env`, ignorado pelo Git.
 
 ## Princípios do projeto
 
