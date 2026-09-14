@@ -113,41 +113,35 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 |---|---|
 | Projeto | Production RAG |
 | Status | Em desenvolvimento |
-| Última etapa concluída | P1.00 — repositório e `.gitignore` |
-| Próxima etapa | P1.01 — ambiente Python e `pyproject.toml` |
+| Última etapa concluída | P1.01 — ambiente Python e `pyproject.toml` |
+| Próxima etapa | P1.02 — estrutura `app/`, `tests/`, `data/`, `scripts/` |
 | Roadmap | Consulte `ROADMAP.md` |
 | Estratégia | Desenvolvimento incremental |
 | Commits | Conventional Commits |
-| Ambiente Python | Ainda não configurado |
+| Python | 3.12+ |
+| Gerenciador | `uv` (`pyproject.toml` + `uv.lock`) |
+| Ambiente virtual | `.venv/` (criado por `uv sync`) |
 
 > Esta seção deve ser mantida atualizada à medida que o projeto evoluir. O README não substitui o roadmap: ele apresenta o projeto para quem chega ao repositório pela primeira vez.
 
 ## Como executar
 
-As instruções definitivas serão preenchidas quando o ambiente Python e a API estiverem configurados nas primeiras etapas do roadmap.
-
-Quando disponível, esta seção deverá permitir que outra pessoa execute o projeto do zero com poucos comandos.
-
-Exemplo esperado ao final:
+Requisitos: Python 3.12+ e [`uv`](https://docs.astral.sh/uv/) instalado.
 
 ```bash
-# clonar
-
 git clone <repository-url>
 cd production-rag
-
-# instalar dependências
 uv sync
-
-# configurar ambiente
-cp .env.example .env
-
-# subir dependências locais
-docker compose up -d
-
-# executar API
-uv run uvicorn app.main:app --reload
 ```
+
+Comandos úteis no estado atual:
+
+```bash
+uv run pytest
+uv run ruff check .
+```
+
+A API, variáveis de ambiente e Docker serão documentados nas próximas microetapas do roadmap.
 
 ## API
 
@@ -205,12 +199,14 @@ production-rag/
 ├── .cursor/
 │   └── rules/
 ├── .gitignore
+├── pyproject.toml
+├── uv.lock
 ├── README.md
 ├── ROADMAP.md
 └── SETUP.md
 ```
 
-Pastas como `app/`, `tests/`, `data/`, `scripts/` e arquivos como `pyproject.toml` serão adicionados nas próximas microetapas do roadmap.
+Pastas como `app/`, `tests/`, `data/` e `scripts/` serão adicionadas na próxima microetapa do roadmap.
 
 ## Princípios do projeto
 
