@@ -42,7 +42,7 @@ Construir um RAG corporativo demonstrável, executável localmente e com caminho
 ### Fase 2 — Ingestão documental
 - [x] **P1.09** Criar pasta com documentos públicos/sintéticos de exemplo.
   - Pronto quando: há pelo menos 5 documentos pequenos.
-- [ ] **P1.10** Criar loader para PDF.
+- [x] **P1.10** Criar loader para PDF.
   - Pronto quando: extrai texto + nome do arquivo + página.
 - [ ] **P1.11** Criar loader para DOCX.
   - Pronto quando: extrai texto + metadados básicos.
