@@ -44,7 +44,7 @@ Construir um RAG corporativo demonstrável, executável localmente e com caminho
   - Pronto quando: há pelo menos 5 documentos pequenos.
 - [x] **P1.10** Criar loader para PDF.
   - Pronto quando: extrai texto + nome do arquivo + página.
-- [ ] **P1.11** Criar loader para DOCX.
+- [x] **P1.11** Criar loader para DOCX.
   - Pronto quando: extrai texto + metadados básicos.
 - [ ] **P1.12** Criar loader para XLSX/CSV.
   - Pronto quando: cada linha/aba gera conteúdo rastreável.
