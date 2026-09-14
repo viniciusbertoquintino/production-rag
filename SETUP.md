@@ -1,29 +1,49 @@
-# Cursor setup for Production RAG
+# Configuração do Cursor — Production RAG
 
-Extract this package at the root of the `production-rag` repository.
+Copie o conteúdo deste pacote para a raiz do repositório `production-rag`.
 
-Expected structure:
+Estrutura esperada:
 
 ```text
 production-rag/
-|-- .cursor/
-|   `-- rules/
-|       |-- 00-project-context.mdc
-|       |-- 10-roadmap-executor.mdc
-|       `-- 20-git-autocommit.mdc
-`-- ROADMAP.md
+├── .cursor/
+│   └── rules/
+│       ├── 00-project-context.mdc
+│       ├── 10-roadmap-executor.mdc
+│       └── 20-git-autocommit.mdc
+├── README.md
+├── ROADMAP.md
+└── SETUP.md
 ```
 
-Then open the repository root in Cursor and start a new Agent chat.
+## Comportamento esperado
 
-Recommended first prompt:
+As rules instruem o Cursor a:
+
+1. ler `ROADMAP.md` e `README.md`;
+2. selecionar somente uma microetapa por vez;
+3. implementar apenas o escopo necessário;
+4. atualizar o README quando a mudança afetar documentação pública;
+5. validar a implementação;
+6. marcar apenas a tarefa concluída no roadmap;
+7. criar um único Conventional Commit;
+8. nunca fazer push automaticamente.
+
+## Prompt inicial recomendado
 
 ```text
-Read ROADMAP.md and the project rules. Validate P1.00 against the current repository. If its Definition of Done is already satisfied, mark only P1.00 as complete, validate the repository, and create the automatic commit according to the Git rule. If it is not satisfied, complete only P1.00. Do not start P1.01.
+Leia o ROADMAP.md, o README.md e todas as Project Rules.
+Valide a P1.00 contra o estado atual do repositório.
+Se o Definition of Done estiver atendido, marque somente a P1.00 como concluída.
+Ajuste o README apenas se necessário para refletir fielmente o estado atual do projeto.
+Execute as validações e crie o commit automático seguindo a Git Rule.
+Não faça push e não inicie a P1.01.
 ```
 
-After that, for each step you can use:
+## Prompt padrão para as próximas etapas
 
 ```text
-Execute the next unchecked roadmap task only. Follow its Definition of Done, validate it, update ROADMAP.md, and create the automatic commit. Do not push and do not start the following task.
+Execute a próxima microetapa do ROADMAP.md.
+Implemente somente essa etapa, cumpra o Definition of Done, mantenha o README alinhado com o estado real do projeto, execute as validações, atualize o roadmap e faça o commit.
+Não faça push e não inicie a tarefa seguinte.
 ```
