@@ -113,8 +113,8 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 |---|---|
 | Projeto | Production RAG |
 | Status | Em desenvolvimento |
-| Última etapa concluída | P1.08 — timeout e tratamento de erro do provider |
-| Próxima etapa | P1.09 — documentos de exemplo |
+| Última etapa concluída | P1.09 — documentos sintéticos de exemplo |
+| Próxima etapa | P1.10 — loader para PDF |
 | Roadmap | Consulte `ROADMAP.md` |
 | Estratégia | Desenvolvimento incremental |
 | Commits | Conventional Commits |
@@ -123,6 +123,7 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 | Ambiente virtual | `.venv/` (criado por `uv sync`) |
 | Configuração | `.env.example` → copiar para `.env` (não versionado) |
 | LLM | `OpenAIProvider` (`OPENAI_API_KEY`, `OPENAI_MODEL`, `LLM_TIMEOUT_SECONDS`) |
+| Documentos de exemplo | `data/sample/` (5 arquivos sintéticos) |
 
 > Esta seção deve ser mantida atualizada à medida que o projeto evoluir. O README não substitui o roadmap: ele apresenta o projeto para quem chega ao repositório pela primeira vez.
 
@@ -235,8 +236,15 @@ production-rag/
 │   ├── test_llm_provider.py
 │   ├── test_openai_provider.py
 │   ├── test_openai_provider_errors.py
+│   ├── test_sample_documents.py
 │   └── test_settings.py
 ├── data/
+│   └── sample/
+│       ├── onboarding-colaboradores.txt
+│       ├── politica-ferias.txt
+│       ├── politica-seguranca-informacao.md
+│       ├── processo-reembolso-despesas.txt
+│       └── sla-suporte-interno.md
 ├── scripts/
 ├── .cursor/
 │   └── rules/
