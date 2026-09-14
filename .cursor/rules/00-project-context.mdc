@@ -1,5 +1,5 @@
 ---
-description: Global engineering standards for the Production RAG portfolio project
+description: Global engineering and portfolio standards for the Production RAG project
 alwaysApply: true
 ---
 
@@ -7,10 +7,12 @@ alwaysApply: true
 
 This repository is an AI Engineering portfolio project. Treat it as production-oriented software, not as a tutorial demo.
 
-## Source of truth
+## Sources of truth
 
 - Read `@ROADMAP.md` before implementing roadmap work.
-- The roadmap task definition and its "Pronto quando" / Definition of Done are authoritative.
+- Read `@README.md` before changing setup, architecture, public behavior, or project documentation.
+- The roadmap task definition and its "Pronto quando" / Definition of Done are authoritative for implementation scope.
+- The README is authoritative for the public-facing description of the repository and must never claim features that are not implemented.
 - Do not silently expand scope beyond the current roadmap task.
 
 ## Engineering standards
@@ -38,6 +40,22 @@ Avoid:
 - vendor coupling when a small provider interface is sufficient
 - implementing future roadmap tasks early
 
+## Portfolio quality
+
+The repository should be understandable by a recruiter or engineer who opens it for the first time.
+
+Prioritize:
+
+- a clear README
+- reproducible setup
+- visible architecture
+- real metrics instead of unsupported claims
+- documented trade-offs
+- tests and validation
+- concise commit history
+
+Do not invent results or present planned features as completed.
+
 ## Security
 
 Never commit:
@@ -58,6 +76,7 @@ When a roadmap task is completed, report:
 
 1. roadmap task completed
 2. files changed
-3. validations/tests executed
-4. commit created
-5. next unchecked roadmap task
+3. README updated or why no README change was necessary
+4. validations/tests executed
+5. commit created
+6. next unchecked roadmap task
