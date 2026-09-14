@@ -1,0 +1,63 @@
+---
+description: Global engineering standards for the Production RAG portfolio project
+alwaysApply: true
+---
+
+# Production RAG - Project Context
+
+This repository is an AI Engineering portfolio project. Treat it as production-oriented software, not as a tutorial demo.
+
+## Source of truth
+
+- Read `@ROADMAP.md` before implementing roadmap work.
+- The roadmap task definition and its "Pronto quando" / Definition of Done are authoritative.
+- Do not silently expand scope beyond the current roadmap task.
+
+## Engineering standards
+
+Prefer:
+
+- Python 3.12+
+- `uv` for environment and dependency management
+- `pyproject.toml`
+- FastAPI and Pydantic
+- type hints
+- small, testable modules
+- explicit interfaces at provider boundaries
+- dependency injection where it improves testability
+- structured logging
+- deterministic and reproducible tests
+- measurable behavior for quality, latency, tokens, and cost
+
+Avoid:
+
+- premature abstractions
+- unnecessary frameworks
+- hidden global state
+- hard-coded secrets
+- vendor coupling when a small provider interface is sufficient
+- implementing future roadmap tasks early
+
+## Security
+
+Never commit:
+
+- `.env`
+- API keys
+- passwords
+- tokens
+- private certificates
+- cloud credentials
+- local secret files
+
+Use environment variables and provide `.env.example` when the roadmap reaches that step.
+
+## Communication after implementation
+
+When a roadmap task is completed, report:
+
+1. roadmap task completed
+2. files changed
+3. validations/tests executed
+4. commit created
+5. next unchecked roadmap task
