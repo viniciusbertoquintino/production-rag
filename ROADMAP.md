@@ -34,7 +34,7 @@ Construir um RAG corporativo demonstrável, executável localmente e com caminho
   - Pronto quando: aplicação não depende diretamente de SDK específico.
 - [x] **P1.06** Implementar primeiro provider.
   - Pronto quando: uma chamada isolada retorna texto.
-- [ ] **P1.07** Criar `POST /chat` sem RAG.
+- [x] **P1.07** Criar `POST /chat` sem RAG.
   - Pronto quando: request/response possuem schemas Pydantic.
 - [ ] **P1.08** Adicionar timeout e tratamento de erro do provider.
   - Pronto quando: falha externa vira erro controlado.

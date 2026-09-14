@@ -113,8 +113,8 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 |---|---|
 | Projeto | Production RAG |
 | Status | Em desenvolvimento |
-| Última etapa concluída | P1.06 — provider OpenAI |
-| Próxima etapa | P1.07 — `POST /chat` sem RAG |
+| Última etapa concluída | P1.07 — `POST /chat` sem RAG |
+| Próxima etapa | P1.08 — timeout e tratamento de erro do provider |
 | Roadmap | Consulte `ROADMAP.md` |
 | Estratégia | Desenvolvimento incremental |
 | Commits | Conventional Commits |
@@ -149,6 +149,14 @@ uv run uvicorn app.main:app --reload
 
 Docker e endpoints adicionais serão documentados nas próximas microetapas do roadmap.
 
+Exemplo de chamada ao chat (requer `OPENAI_API_KEY` configurada ou override em testes):
+
+```bash
+curl -X POST http://127.0.0.1:8000/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","content":"Hello"}]}'
+```
+
 ## API
 
 Os endpoints serão documentados conforme forem implementados.
@@ -156,7 +164,7 @@ Os endpoints serão documentados conforme forem implementados.
 | Método | Endpoint | Descrição | Status |
 |---|---|---|---|
 | GET | `/health` | Healthcheck da aplicação | Implementado |
-| POST | `/chat` | Chamada ao LLM sem RAG | Planejado |
+| POST | `/chat` | Chamada ao LLM sem RAG | Implementado |
 | POST | `/search` | Inspeção do retrieval | Planejado |
 | POST | `/ask` | Fluxo completo RAG | Planejado |
 
@@ -203,16 +211,23 @@ Estrutura atual do repositório:
 ```text
 production-rag/
 ├── app/
+│   ├── api/
+│   │   ├── routes/
+│   │   │   └── chat.py
+│   │   └── schemas/
+│   │       └── chat.py
 │   ├── llm/
 │   │   ├── __init__.py
 │   │   ├── models.py
 │   │   ├── openai_provider.py
 │   │   └── provider.py
 │   ├── __init__.py
+│   ├── dependencies.py
 │   ├── main.py
 │   └── settings.py
 ├── tests/
 │   ├── __init__.py
+│   ├── test_chat.py
 │   ├── test_health.py
 │   ├── test_imports.py
 │   ├── test_llm_provider.py
