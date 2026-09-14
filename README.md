@@ -95,7 +95,7 @@ O desenvolvimento é dividido em microetapas pequenas e verificáveis no arquivo
 
 Principais fases:
 
-- [ ] Base do repositório
+- [x] Base do repositório
 - [ ] LLM mínimo
 - [ ] Ingestão documental
 - [ ] Indexação e retrieval
@@ -113,8 +113,8 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 |---|---|
 | Projeto | Production RAG |
 | Status | Em desenvolvimento |
-| Última etapa concluída | P1.03 — variáveis com `.env.example` |
-| Próxima etapa | P1.04 — FastAPI com `GET /health` |
+| Última etapa concluída | P1.04 — FastAPI com `GET /health` |
+| Próxima etapa | P1.05 — interface `LLMProvider` |
 | Roadmap | Consulte `ROADMAP.md` |
 | Estratégia | Desenvolvimento incremental |
 | Commits | Conventional Commits |
@@ -143,9 +143,10 @@ Comandos úteis no estado atual:
 ```bash
 uv run pytest
 uv run ruff check .
+uv run uvicorn app.main:app --reload
 ```
 
-A API e Docker serão documentados nas próximas microetapas do roadmap.
+Docker e endpoints adicionais serão documentados nas próximas microetapas do roadmap.
 
 ## API
 
@@ -153,7 +154,7 @@ Os endpoints serão documentados conforme forem implementados.
 
 | Método | Endpoint | Descrição | Status |
 |---|---|---|---|
-| GET | `/health` | Healthcheck da aplicação | Planejado |
+| GET | `/health` | Healthcheck da aplicação | Implementado |
 | POST | `/chat` | Chamada ao LLM sem RAG | Planejado |
 | POST | `/search` | Inspeção do retrieval | Planejado |
 | POST | `/ask` | Fluxo completo RAG | Planejado |
@@ -202,9 +203,11 @@ Estrutura atual do repositório:
 production-rag/
 ├── app/
 │   ├── __init__.py
+│   ├── main.py
 │   └── settings.py
 ├── tests/
 │   ├── __init__.py
+│   ├── test_health.py
 │   ├── test_imports.py
 │   └── test_settings.py
 ├── data/
