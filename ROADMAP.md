@@ -20,7 +20,7 @@ Construir um RAG corporativo demonstrável, executável localmente e com caminho
 ### Fase 0 — Base do repositório
 - [x] **P1.00** Criar repositório e `.gitignore`.
   - Pronto quando: `main` possui README mínimo e primeiro commit.
-- [ ] **P1.01** Criar ambiente Python e `pyproject.toml`.
+- [x] **P1.01** Criar ambiente Python e `pyproject.toml`.
   - Pronto quando: dependências instalam do zero.
 - [ ] **P1.02** Criar estrutura `app/`, `tests/`, `data/`, `scripts/`.
   - Pronto quando: imports funcionam sem hacks de path.
