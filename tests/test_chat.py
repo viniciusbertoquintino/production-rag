@@ -5,6 +5,7 @@ from fastapi.testclient import TestClient
 
 from app.dependencies import get_llm_provider
 from app.llm import LLMProvider, LLMRequest, LLMResponse
+from app.llm.errors import LLMServiceError, LLMTimeoutError
 from app.main import app
 
 
@@ -72,3 +73,54 @@ def test_chat_forwards_messages_to_provider(
     assert llm_request.messages[0].content == "Hello"
     assert llm_request.model == "gpt-4o-mini"
     assert llm_request.temperature == 0.2
+
+
+def test_chat_returns_504_on_provider_timeout() -> None:
+    class TimeoutLLMProvider(LLMProvider):
+        async def generate(self, request: LLMRequest) -> LLMResponse:
+            raise LLMTimeoutError("LLM request timed out")
+
+    app.dependency_overrides[get_llm_provider] = lambda: TimeoutLLMProvider()
+    with TestClient(app) as test_client:
+        response = test_client.post(
+            "/chat",
+            json={"messages": [{"role": "user", "content": "Hello"}]},
+        )
+
+    app.dependency_overrides.clear()
+    assert response.status_code == 504
+    assert response.json() == {"detail": "LLM request timed out"}
+
+
+def test_chat_returns_502_on_provider_service_error() -> None:
+    class FailingLLMProvider(LLMProvider):
+        async def generate(self, request: LLMRequest) -> LLMResponse:
+            raise LLMServiceError("LLM service returned an error", status_code=503)
+
+    app.dependency_overrides[get_llm_provider] = lambda: FailingLLMProvider()
+    with TestClient(app) as test_client:
+        response = test_client.post(
+            "/chat",
+            json={"messages": [{"role": "user", "content": "Hello"}]},
+        )
+
+    app.dependency_overrides.clear()
+    assert response.status_code == 502
+    assert response.json() == {"detail": "LLM service returned an error"}
+
+
+def test_chat_returns_429_on_provider_rate_limit() -> None:
+    class RateLimitedLLMProvider(LLMProvider):
+        async def generate(self, request: LLMRequest) -> LLMResponse:
+            raise LLMServiceError("LLM rate limit exceeded", status_code=429)
+
+    app.dependency_overrides[get_llm_provider] = lambda: RateLimitedLLMProvider()
+    with TestClient(app) as test_client:
+        response = test_client.post(
+            "/chat",
+            json={"messages": [{"role": "user", "content": "Hello"}]},
+        )
+
+    app.dependency_overrides.clear()
+    assert response.status_code == 429
+    assert response.json() == {"detail": "LLM rate limit exceeded"}

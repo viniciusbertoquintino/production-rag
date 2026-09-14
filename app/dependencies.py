@@ -21,4 +21,5 @@ def get_llm_provider(settings: Settings = Depends(get_settings)) -> LLMProvider:
     return OpenAIProvider(
         api_key=settings.openai_api_key,
         default_model=settings.openai_model,
+        timeout_seconds=settings.llm_timeout_seconds,
     )

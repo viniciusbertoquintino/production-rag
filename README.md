@@ -96,7 +96,7 @@ O desenvolvimento é dividido em microetapas pequenas e verificáveis no arquivo
 Principais fases:
 
 - [x] Base do repositório
-- [ ] LLM mínimo
+- [x] LLM mínimo
 - [ ] Ingestão documental
 - [ ] Indexação e retrieval
 - [ ] Geração fundamentada
@@ -113,8 +113,8 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 |---|---|
 | Projeto | Production RAG |
 | Status | Em desenvolvimento |
-| Última etapa concluída | P1.07 — `POST /chat` sem RAG |
-| Próxima etapa | P1.08 — timeout e tratamento de erro do provider |
+| Última etapa concluída | P1.08 — timeout e tratamento de erro do provider |
+| Próxima etapa | P1.09 — documentos de exemplo |
 | Roadmap | Consulte `ROADMAP.md` |
 | Estratégia | Desenvolvimento incremental |
 | Commits | Conventional Commits |
@@ -122,7 +122,7 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 | Gerenciador | `uv` (`pyproject.toml` + `uv.lock`) |
 | Ambiente virtual | `.venv/` (criado por `uv sync`) |
 | Configuração | `.env.example` → copiar para `.env` (não versionado) |
-| LLM | `OpenAIProvider` (`OPENAI_API_KEY`, `OPENAI_MODEL`) |
+| LLM | `OpenAIProvider` (`OPENAI_API_KEY`, `OPENAI_MODEL`, `LLM_TIMEOUT_SECONDS`) |
 
 > Esta seção deve ser mantida atualizada à medida que o projeto evoluir. O README não substitui o roadmap: ele apresenta o projeto para quem chega ao repositório pela primeira vez.
 
@@ -164,7 +164,7 @@ Os endpoints serão documentados conforme forem implementados.
 | Método | Endpoint | Descrição | Status |
 |---|---|---|---|
 | GET | `/health` | Healthcheck da aplicação | Implementado |
-| POST | `/chat` | Chamada ao LLM sem RAG | Implementado |
+| POST | `/chat` | Chamada ao LLM sem RAG | Implementado (timeout/erros controlados) |
 | POST | `/search` | Inspeção do retrieval | Planejado |
 | POST | `/ask` | Fluxo completo RAG | Planejado |
 
@@ -212,12 +212,14 @@ Estrutura atual do repositório:
 production-rag/
 ├── app/
 │   ├── api/
+│   │   ├── exception_handlers.py
 │   │   ├── routes/
 │   │   │   └── chat.py
 │   │   └── schemas/
 │   │       └── chat.py
 │   ├── llm/
 │   │   ├── __init__.py
+│   │   ├── errors.py
 │   │   ├── models.py
 │   │   ├── openai_provider.py
 │   │   └── provider.py
@@ -232,6 +234,7 @@ production-rag/
 │   ├── test_imports.py
 │   ├── test_llm_provider.py
 │   ├── test_openai_provider.py
+│   ├── test_openai_provider_errors.py
 │   └── test_settings.py
 ├── data/
 ├── scripts/

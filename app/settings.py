@@ -15,6 +15,7 @@ class Settings(BaseSettings):
     log_level: str = Field(default="INFO")
     openai_api_key: str | None = Field(default=None)
     openai_model: str = Field(default="gpt-4o-mini")
+    llm_timeout_seconds: float = Field(default=30.0, gt=0)
     qdrant_url: str = Field(default="http://localhost:6333")
     qdrant_api_key: str | None = Field(default=None)
     langfuse_public_key: str | None = Field(default=None)

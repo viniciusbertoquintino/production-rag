@@ -1,5 +1,8 @@
-from openai import AsyncOpenAI
+import asyncio
 
+from openai import APIConnectionError, APIStatusError, APITimeoutError, AsyncOpenAI, RateLimitError
+
+from app.llm.errors import LLMServiceError, LLMTimeoutError
 from app.llm.models import LLMRequest, LLMResponse
 from app.llm.provider import LLMProvider
 
@@ -12,9 +15,11 @@ class OpenAIProvider(LLMProvider):
         *,
         api_key: str,
         default_model: str = "gpt-4o-mini",
+        timeout_seconds: float = 30.0,
         client: AsyncOpenAI | None = None,
     ) -> None:
         self._default_model = default_model
+        self._timeout_seconds = timeout_seconds
         self._client = client or AsyncOpenAI(api_key=api_key)
 
     async def generate(self, request: LLMRequest) -> LLMResponse:
@@ -29,7 +34,25 @@ class OpenAIProvider(LLMProvider):
         if request.temperature is not None:
             payload["temperature"] = request.temperature
 
-        response = await self._client.chat.completions.create(**payload)
+        try:
+            response = await asyncio.wait_for(
+                self._client.chat.completions.create(**payload),
+                timeout=self._timeout_seconds,
+            )
+        except TimeoutError as exc:
+            raise LLMTimeoutError("LLM request timed out") from exc
+        except APITimeoutError as exc:
+            raise LLMTimeoutError("LLM request timed out") from exc
+        except RateLimitError as exc:
+            raise LLMServiceError("LLM rate limit exceeded", status_code=429) from exc
+        except APIStatusError as exc:
+            raise LLMServiceError(
+                "LLM service returned an error",
+                status_code=exc.status_code,
+            ) from exc
+        except APIConnectionError as exc:
+            raise LLMServiceError("Failed to connect to LLM service") from exc
+
         choice = response.choices[0]
         usage = response.usage
 
