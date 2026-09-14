@@ -40,7 +40,7 @@ Construir um RAG corporativo demonstrável, executável localmente e com caminho
   - Pronto quando: falha externa vira erro controlado.
 
 ### Fase 2 — Ingestão documental
-- [ ] **P1.09** Criar pasta com documentos públicos/sintéticos de exemplo.
+- [x] **P1.09** Criar pasta com documentos públicos/sintéticos de exemplo.
   - Pronto quando: há pelo menos 5 documentos pequenos.
 - [ ] **P1.10** Criar loader para PDF.
   - Pronto quando: extrai texto + nome do arquivo + página.
