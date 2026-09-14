@@ -113,8 +113,8 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 |---|---|
 | Projeto | Production RAG |
 | Status | Em desenvolvimento |
-| Última etapa concluída | P1.11 — loader para DOCX |
-| Próxima etapa | P1.12 — loader para XLSX/CSV |
+| Última etapa concluída | P1.12 — loader para XLSX/CSV |
+| Próxima etapa | P1.13 — normalização em schema único |
 | Roadmap | Consulte `ROADMAP.md` |
 | Estratégia | Desenvolvimento incremental |
 | Commits | Conventional Commits |
@@ -123,8 +123,8 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 | Ambiente virtual | `.venv/` (criado por `uv sync`) |
 | Configuração | `.env.example` → copiar para `.env` (não versionado) |
 | LLM | `OpenAIProvider` (`OPENAI_API_KEY`, `OPENAI_MODEL`, `LLM_TIMEOUT_SECONDS`) |
-| Documentos de exemplo | `data/sample/` (5 arquivos + 1 PDF + 1 DOCX) |
-| Ingestão | `PDFLoader` (texto/arquivo/página), `DOCXLoader` (texto/metadados) |
+| Documentos de exemplo | `data/sample/` (5 arquivos + PDF + DOCX + CSV + XLSX) |
+| Ingestão | `PDFLoader`, `DOCXLoader`, `TabularLoader` (CSV/XLSX) |
 
 > Esta seção deve ser mantida atualizada à medida que o projeto evoluir. O README não substitui o roadmap: ele apresenta o projeto para quem chega ao repositório pela primeira vez.
 
@@ -223,7 +223,8 @@ production-rag/
 │   │   ├── __init__.py
 │   │   ├── docx_loader.py
 │   │   ├── models.py
-│   │   └── pdf_loader.py
+│   │   ├── pdf_loader.py
+│   │   └── tabular_loader.py
 │   ├── llm/
 │   │   ├── __init__.py
 │   │   ├── errors.py
@@ -245,6 +246,7 @@ production-rag/
 │   ├── test_docx_loader.py
 │   ├── test_pdf_loader.py
 │   ├── test_sample_documents.py
+│   ├── test_tabular_loader.py
 │   └── test_settings.py
 ├── data/
 │   └── sample/
@@ -253,8 +255,10 @@ production-rag/
 │       ├── politica-ferias.txt
 │       ├── politica-seguranca-informacao.docx
 │       ├── politica-seguranca-informacao.md
+│       ├── processo-reembolso-despesas.csv
 │       ├── processo-reembolso-despesas.txt
-│       └── sla-suporte-interno.md
+│       ├── sla-suporte-interno.md
+│       └── sla-suporte-interno.xlsx
 ├── scripts/
 ├── .cursor/
 │   └── rules/
