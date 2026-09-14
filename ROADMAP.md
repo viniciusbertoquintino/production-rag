@@ -30,7 +30,7 @@ Construir um RAG corporativo demonstrável, executável localmente e com caminho
   - Pronto quando: retorna 200 e possui teste automatizado.
 
 ### Fase 1 — LLM mínimo
-- [ ] **P1.05** Criar interface `LLMProvider`.
+- [x] **P1.05** Criar interface `LLMProvider`.
   - Pronto quando: aplicação não depende diretamente de SDK específico.
 - [ ] **P1.06** Implementar primeiro provider.
   - Pronto quando: uma chamada isolada retorna texto.
