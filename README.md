@@ -113,8 +113,8 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 |---|---|
 | Projeto | Production RAG |
 | Status | Em desenvolvimento |
-| Última etapa concluída | P1.10 — loader para PDF |
-| Próxima etapa | P1.11 — loader para DOCX |
+| Última etapa concluída | P1.11 — loader para DOCX |
+| Próxima etapa | P1.12 — loader para XLSX/CSV |
 | Roadmap | Consulte `ROADMAP.md` |
 | Estratégia | Desenvolvimento incremental |
 | Commits | Conventional Commits |
@@ -123,8 +123,8 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 | Ambiente virtual | `.venv/` (criado por `uv sync`) |
 | Configuração | `.env.example` → copiar para `.env` (não versionado) |
 | LLM | `OpenAIProvider` (`OPENAI_API_KEY`, `OPENAI_MODEL`, `LLM_TIMEOUT_SECONDS`) |
-| Documentos de exemplo | `data/sample/` (5 arquivos + 1 PDF) |
-| Ingestão | `PDFLoader` extrai texto, arquivo e página |
+| Documentos de exemplo | `data/sample/` (5 arquivos + 1 PDF + 1 DOCX) |
+| Ingestão | `PDFLoader` (texto/arquivo/página), `DOCXLoader` (texto/metadados) |
 
 > Esta seção deve ser mantida atualizada à medida que o projeto evoluir. O README não substitui o roadmap: ele apresenta o projeto para quem chega ao repositório pela primeira vez.
 
@@ -221,6 +221,7 @@ production-rag/
 │   │       └── chat.py
 │   ├── ingestion/
 │   │   ├── __init__.py
+│   │   ├── docx_loader.py
 │   │   ├── models.py
 │   │   └── pdf_loader.py
 │   ├── llm/
@@ -241,6 +242,7 @@ production-rag/
 │   ├── test_llm_provider.py
 │   ├── test_openai_provider.py
 │   ├── test_openai_provider_errors.py
+│   ├── test_docx_loader.py
 │   ├── test_pdf_loader.py
 │   ├── test_sample_documents.py
 │   └── test_settings.py
@@ -249,6 +251,7 @@ production-rag/
 │       ├── onboarding-colaboradores.txt
 │       ├── politica-ferias.pdf
 │       ├── politica-ferias.txt
+│       ├── politica-seguranca-informacao.docx
 │       ├── politica-seguranca-informacao.md
 │       ├── processo-reembolso-despesas.txt
 │       └── sla-suporte-interno.md
