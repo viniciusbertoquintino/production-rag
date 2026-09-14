@@ -1,7 +1,231 @@
 # Production RAG
 
-Projeto de portfólio para construção de um sistema RAG com foco em qualidade de retrieval, avaliação, observabilidade e práticas de produção.
+Sistema de **Retrieval-Augmented Generation (RAG)** construído como projeto de portfólio de AI Engineering, com foco em práticas próximas de produção.
 
-## Status
+O objetivo não é apenas criar um chatbot que conversa com documentos. O projeto busca demonstrar, de forma mensurável, qualidade de retrieval, avaliação, observabilidade, custo, latência, testes, segurança básica e deploy.
 
-🚧 Em desenvolvimento.
+> Status: 🚧 Em desenvolvimento — execução incremental pelo `ROADMAP.md`.
+
+## Objetivos técnicos
+
+Ao final do projeto, a solução deverá demonstrar:
+
+- ingestão de documentos com rastreabilidade de origem;
+- chunking configurável;
+- embeddings desacoplados por provider;
+- busca vetorial e híbrida;
+- reranking opcional;
+- respostas fundamentadas com fontes;
+- avaliação de retrieval com métricas como Hit@K, Recall@K e/ou MRR;
+- avaliação de respostas quanto a relevância e groundedness;
+- tracing e observabilidade;
+- métricas de latência, tokens e custo;
+- testes automatizados e regressão de evals;
+- empacotamento com Docker;
+- CI/CD;
+- deploy em cloud;
+- teste de carga e documentação de trade-offs.
+
+## Arquitetura planejada
+
+A arquitetura será implementada progressivamente ao longo do roadmap.
+
+```text
+Documents
+    |
+    v
+Ingestion / Loaders
+    |
+    v
+Normalization
+    |
+    v
+Chunking
+    |
+    v
+Embeddings
+    |
+    v
+Vector Database
+    |
+    +--------------------+
+    |                    |
+    v                    v
+Semantic Search      Lexical Search
+    |                    |
+    +---------+----------+
+              |
+              v
+        Hybrid Retrieval
+              |
+              v
+          Reranking
+              |
+              v
+         RAG Context
+              |
+              v
+             LLM
+              |
+              v
+       Answer + Sources
+
+Observability / Evals / Metrics
+        across the pipeline
+```
+
+## Stack planejada
+
+- Python 3.12+
+- FastAPI
+- Pydantic / Pydantic Settings
+- `uv`
+- OpenAI ou Azure OpenAI via provider interface
+- Qdrant
+- Azure AI Search como adaptador opcional
+- Pytest
+- Ruff
+- Langfuse e/ou OpenTelemetry
+- Docker / Docker Compose
+- GitHub Actions
+
+## Roadmap
+
+O desenvolvimento é dividido em microetapas pequenas e verificáveis no arquivo [`ROADMAP.md`](./ROADMAP.md).
+
+Principais fases:
+
+- [ ] Base do repositório
+- [ ] LLM mínimo
+- [ ] Ingestão documental
+- [ ] Indexação e retrieval
+- [ ] Geração fundamentada
+- [ ] Qualidade de retrieval
+- [ ] Evals de resposta
+- [ ] Observabilidade e produção
+- [ ] Empacotamento e deploy
+
+A regra do projeto é simples: **uma microetapa concluída = uma validação = um commit lógico**.
+
+## Estado atual
+
+| Item | Valor |
+|---|---|
+| Projeto | Production RAG |
+| Status | Em desenvolvimento |
+| Última etapa concluída | P1.00 — repositório e `.gitignore` |
+| Próxima etapa | P1.01 — ambiente Python e `pyproject.toml` |
+| Roadmap | Consulte `ROADMAP.md` |
+| Estratégia | Desenvolvimento incremental |
+| Commits | Conventional Commits |
+| Ambiente Python | Ainda não configurado |
+
+> Esta seção deve ser mantida atualizada à medida que o projeto evoluir. O README não substitui o roadmap: ele apresenta o projeto para quem chega ao repositório pela primeira vez.
+
+## Como executar
+
+As instruções definitivas serão preenchidas quando o ambiente Python e a API estiverem configurados nas primeiras etapas do roadmap.
+
+Quando disponível, esta seção deverá permitir que outra pessoa execute o projeto do zero com poucos comandos.
+
+Exemplo esperado ao final:
+
+```bash
+# clonar
+
+git clone <repository-url>
+cd production-rag
+
+# instalar dependências
+uv sync
+
+# configurar ambiente
+cp .env.example .env
+
+# subir dependências locais
+docker compose up -d
+
+# executar API
+uv run uvicorn app.main:app --reload
+```
+
+## API
+
+Os endpoints serão documentados conforme forem implementados.
+
+| Método | Endpoint | Descrição | Status |
+|---|---|---|---|
+| GET | `/health` | Healthcheck da aplicação | Planejado |
+| POST | `/chat` | Chamada ao LLM sem RAG | Planejado |
+| POST | `/search` | Inspeção do retrieval | Planejado |
+| POST | `/ask` | Fluxo completo RAG | Planejado |
+
+## Avaliação
+
+Uma parte central deste projeto é medir o comportamento do sistema em vez de ajustar configurações apenas por percepção subjetiva.
+
+Métricas planejadas:
+
+| Categoria | Métricas |
+|---|---|
+| Retrieval | Hit@K, Recall@K e/ou MRR |
+| Resposta | relevância, groundedness/fidelidade |
+| Performance | p50, p95, taxa de erro |
+| LLM | tokens, custo aproximado, latência |
+
+Os resultados reais serão adicionados quando as fases de avaliação forem concluídas.
+
+## Resultados e benchmarks
+
+Ainda não disponíveis.
+
+Esta seção será atualizada com medições reais, comparações de configuração e principais trade-offs encontrados durante o projeto.
+
+## Decisões de engenharia
+
+As decisões relevantes serão documentadas conforme surgirem, incluindo temas como:
+
+- escolha de estratégia de chunking;
+- busca semântica vs. híbrida;
+- uso de reranking;
+- critérios de fallback;
+- cache;
+- custo vs. qualidade;
+- latência vs. qualidade;
+- acoplamento com provedores;
+- observabilidade;
+- segurança contra prompt injection.
+
+## Estrutura do projeto
+
+Estrutura atual do repositório:
+
+```text
+production-rag/
+├── .cursor/
+│   └── rules/
+├── .gitignore
+├── README.md
+├── ROADMAP.md
+└── SETUP.md
+```
+
+Pastas como `app/`, `tests/`, `data/`, `scripts/` e arquivos como `pyproject.toml` serão adicionados nas próximas microetapas do roadmap.
+
+## Princípios do projeto
+
+Este repositório segue alguns princípios desde o início:
+
+1. **Mensurar antes de otimizar.**
+2. **Uma mudança lógica por commit.**
+3. **Não implementar etapas futuras antes da hora.**
+4. **Separar providers de regras de negócio.**
+5. **Testar comportamento, não apenas código.**
+6. **Não versionar segredos.**
+7. **Documentar limitações e trade-offs reais.**
+
+## Autor
+
+**Vinícius Berto**
+
+AI Engineer — Generative AI, LLMs, RAG e AI Agents.
