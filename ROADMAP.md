@@ -24,7 +24,7 @@ Construir um RAG corporativo demonstrável, executável localmente e com caminho
   - Pronto quando: dependências instalam do zero.
 - [x] **P1.02** Criar estrutura `app/`, `tests/`, `data/`, `scripts/`.
   - Pronto quando: imports funcionam sem hacks de path.
-- [ ] **P1.03** Configurar variáveis com `.env.example`.
+- [x] **P1.03** Configurar variáveis com `.env.example`.
   - Pronto quando: nenhum segredo está versionado.
 - [ ] **P1.04** Criar FastAPI com `GET /health`.
   - Pronto quando: retorna 200 e possui teste automatizado.

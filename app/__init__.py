@@ -1,3 +1,5 @@
 """Production RAG application package."""
 
-__all__: list[str] = []
+from app.settings import Settings
+
+__all__ = ["Settings"]
