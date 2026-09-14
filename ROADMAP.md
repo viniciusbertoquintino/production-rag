@@ -36,7 +36,7 @@ Construir um RAG corporativo demonstrável, executável localmente e com caminho
   - Pronto quando: uma chamada isolada retorna texto.
 - [x] **P1.07** Criar `POST /chat` sem RAG.
   - Pronto quando: request/response possuem schemas Pydantic.
-- [ ] **P1.08** Adicionar timeout e tratamento de erro do provider.
+- [x] **P1.08** Adicionar timeout e tratamento de erro do provider.
   - Pronto quando: falha externa vira erro controlado.
 
 ### Fase 2 — Ingestão documental
