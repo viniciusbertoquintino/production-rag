@@ -32,7 +32,7 @@ Construir um RAG corporativo demonstrável, executável localmente e com caminho
 ### Fase 1 — LLM mínimo
 - [x] **P1.05** Criar interface `LLMProvider`.
   - Pronto quando: aplicação não depende diretamente de SDK específico.
-- [ ] **P1.06** Implementar primeiro provider.
+- [x] **P1.06** Implementar primeiro provider.
   - Pronto quando: uma chamada isolada retorna texto.
 - [ ] **P1.07** Criar `POST /chat` sem RAG.
   - Pronto quando: request/response possuem schemas Pydantic.

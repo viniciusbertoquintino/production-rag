@@ -113,8 +113,8 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 |---|---|
 | Projeto | Production RAG |
 | Status | Em desenvolvimento |
-| Última etapa concluída | P1.05 — interface `LLMProvider` |
-| Próxima etapa | P1.06 — primeiro provider LLM |
+| Última etapa concluída | P1.06 — provider OpenAI |
+| Próxima etapa | P1.07 — `POST /chat` sem RAG |
 | Roadmap | Consulte `ROADMAP.md` |
 | Estratégia | Desenvolvimento incremental |
 | Commits | Conventional Commits |
@@ -122,6 +122,7 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 | Gerenciador | `uv` (`pyproject.toml` + `uv.lock`) |
 | Ambiente virtual | `.venv/` (criado por `uv sync`) |
 | Configuração | `.env.example` → copiar para `.env` (não versionado) |
+| LLM | `OpenAIProvider` (`OPENAI_API_KEY`, `OPENAI_MODEL`) |
 
 > Esta seção deve ser mantida atualizada à medida que o projeto evoluir. O README não substitui o roadmap: ele apresenta o projeto para quem chega ao repositório pela primeira vez.
 
@@ -205,6 +206,7 @@ production-rag/
 │   ├── llm/
 │   │   ├── __init__.py
 │   │   ├── models.py
+│   │   ├── openai_provider.py
 │   │   └── provider.py
 │   ├── __init__.py
 │   ├── main.py
@@ -214,6 +216,7 @@ production-rag/
 │   ├── test_health.py
 │   ├── test_imports.py
 │   ├── test_llm_provider.py
+│   ├── test_openai_provider.py
 │   └── test_settings.py
 ├── data/
 ├── scripts/
