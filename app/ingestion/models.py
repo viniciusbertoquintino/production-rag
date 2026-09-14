@@ -16,3 +16,10 @@ class DOCXContent(BaseModel):
     author: str | None = None
     created_at: datetime | None = None
     modified_at: datetime | None = None
+
+
+class TabularRowContent(BaseModel):
+    filename: str
+    sheet: str | None = None
+    row: int = Field(ge=1)
+    text: str
