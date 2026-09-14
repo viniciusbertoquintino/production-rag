@@ -113,8 +113,8 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 |---|---|
 | Projeto | Production RAG |
 | Status | Em desenvolvimento |
-| Última etapa concluída | P1.04 — FastAPI com `GET /health` |
-| Próxima etapa | P1.05 — interface `LLMProvider` |
+| Última etapa concluída | P1.05 — interface `LLMProvider` |
+| Próxima etapa | P1.06 — primeiro provider LLM |
 | Roadmap | Consulte `ROADMAP.md` |
 | Estratégia | Desenvolvimento incremental |
 | Commits | Conventional Commits |
@@ -202,6 +202,10 @@ Estrutura atual do repositório:
 ```text
 production-rag/
 ├── app/
+│   ├── llm/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── provider.py
 │   ├── __init__.py
 │   ├── main.py
 │   └── settings.py
@@ -209,6 +213,7 @@ production-rag/
 │   ├── __init__.py
 │   ├── test_health.py
 │   ├── test_imports.py
+│   ├── test_llm_provider.py
 │   └── test_settings.py
 ├── data/
 ├── scripts/
