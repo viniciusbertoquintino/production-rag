@@ -113,8 +113,8 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 |---|---|
 | Projeto | Production RAG |
 | Status | Em desenvolvimento |
-| Última etapa concluída | P1.01 — ambiente Python e `pyproject.toml` |
-| Próxima etapa | P1.02 — estrutura `app/`, `tests/`, `data/`, `scripts/` |
+| Última etapa concluída | P1.02 — estrutura `app/`, `tests/`, `data/`, `scripts/` |
+| Próxima etapa | P1.03 — variáveis com `.env.example` |
 | Roadmap | Consulte `ROADMAP.md` |
 | Estratégia | Desenvolvimento incremental |
 | Commits | Conventional Commits |
@@ -196,6 +196,13 @@ Estrutura atual do repositório:
 
 ```text
 production-rag/
+├── app/
+│   └── __init__.py
+├── tests/
+│   ├── __init__.py
+│   └── test_imports.py
+├── data/
+├── scripts/
 ├── .cursor/
 │   └── rules/
 ├── .gitignore
@@ -206,7 +213,7 @@ production-rag/
 └── SETUP.md
 ```
 
-Pastas como `app/`, `tests/`, `data/` e `scripts/` serão adicionadas na próxima microetapa do roadmap.
+O pacote `app` é instalado em modo editável via `uv sync`, permitindo imports sem hacks de `sys.path`.
 
 ## Princípios do projeto
 
