@@ -113,8 +113,8 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 |---|---|
 | Projeto | Production RAG |
 | Status | Em desenvolvimento |
-| Última etapa concluída | P1.13 — normalização em schema único |
-| Próxima etapa | P1.14 — chunking configurável |
+| Última etapa concluída | P1.14 — chunking configurável |
+| Próxima etapa | P1.15 — teste unitário de chunking |
 | Roadmap | Consulte `ROADMAP.md` |
 | Estratégia | Desenvolvimento incremental |
 | Commits | Conventional Commits |
@@ -124,7 +124,7 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 | Configuração | `.env.example` → copiar para `.env` (não versionado) |
 | LLM | `OpenAIProvider` (`OPENAI_API_KEY`, `OPENAI_MODEL`, `LLM_TIMEOUT_SECONDS`) |
 | Documentos de exemplo | `data/sample/` (5 arquivos + PDF + DOCX + CSV + XLSX) |
-| Ingestão | loaders retornam `Document` normalizado (`PDFLoader`, `DOCXLoader`, `TabularLoader`) |
+| Ingestão | loaders retornam `Document` normalizado (`PDFLoader`, `DOCXLoader`, `TabularLoader`); `TextChunker` divide texto com `chunk_size` e `overlap` configuráveis |
 
 > Esta seção deve ser mantida atualizada à medida que o projeto evoluir. O README não substitui o roadmap: ele apresenta o projeto para quem chega ao repositório pela primeira vez.
 
@@ -221,6 +221,7 @@ production-rag/
 │   │       └── chat.py
 │   ├── ingestion/
 │   │   ├── __init__.py
+│   │   ├── chunker.py
 │   │   ├── docx_loader.py
 │   │   ├── models.py
 │   │   ├── pdf_loader.py
@@ -237,6 +238,7 @@ production-rag/
 │   └── settings.py
 ├── tests/
 │   ├── __init__.py
+│   ├── test_chunker.py
 │   ├── test_chat.py
 │   ├── test_health.py
 │   ├── test_imports.py
