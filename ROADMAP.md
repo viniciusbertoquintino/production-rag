@@ -50,7 +50,7 @@ Construir um RAG corporativo demonstrável, executável localmente e com caminho
   - Pronto quando: cada linha/aba gera conteúdo rastreável.
 - [x] **P1.13** Normalizar documento em um schema único.
   - Pronto quando: todos os loaders devolvem o mesmo tipo.
-- [ ] **P1.14** Implementar chunking configurável.
+- [x] **P1.14** Implementar chunking configurável.
   - Pronto quando: tamanho e overlap são parâmetros.
 - [ ] **P1.15** Criar teste unitário de chunking.
   - Pronto quando: bordas e documentos vazios estão cobertos.
