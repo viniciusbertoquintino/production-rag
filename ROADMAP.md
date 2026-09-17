@@ -52,7 +52,7 @@ Construir um RAG corporativo demonstrável, executável localmente e com caminho
   - Pronto quando: todos os loaders devolvem o mesmo tipo.
 - [x] **P1.14** Implementar chunking configurável.
   - Pronto quando: tamanho e overlap são parâmetros.
-- [ ] **P1.15** Criar teste unitário de chunking.
+- [x] **P1.15** Criar teste unitário de chunking.
   - Pronto quando: bordas e documentos vazios estão cobertos.
 
 ### Fase 3 — Indexação e retrieval
