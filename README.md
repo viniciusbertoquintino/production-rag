@@ -113,8 +113,8 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 |---|---|
 | Projeto | Production RAG |
 | Status | Em desenvolvimento |
-| Última etapa concluída | P1.14 — chunking configurável |
-| Próxima etapa | P1.15 — teste unitário de chunking |
+| Última etapa concluída | P1.15 — teste unitário de chunking |
+| Próxima etapa | P1.16 — Qdrant via Docker Compose |
 | Roadmap | Consulte `ROADMAP.md` |
 | Estratégia | Desenvolvimento incremental |
 | Commits | Conventional Commits |
