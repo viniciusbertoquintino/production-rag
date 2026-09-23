@@ -97,7 +97,7 @@ Principais fases:
 
 - [x] Base do repositório
 - [x] LLM mínimo
-- [ ] Ingestão documental
+- [x] Ingestão documental
 - [ ] Indexação e retrieval
 - [ ] Geração fundamentada
 - [ ] Qualidade de retrieval
@@ -113,8 +113,8 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 |---|---|
 | Projeto | Production RAG |
 | Status | Em desenvolvimento |
-| Última etapa concluída | P1.15 — teste unitário de chunking |
-| Próxima etapa | P1.16 — Qdrant via Docker Compose |
+| Última etapa concluída | P1.16 — Qdrant via Docker Compose |
+| Próxima etapa | P1.17 — interface `EmbeddingProvider` |
 | Roadmap | Consulte `ROADMAP.md` |
 | Estratégia | Desenvolvimento incremental |
 | Commits | Conventional Commits |
@@ -125,12 +125,13 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 | LLM | `OpenAIProvider` (`OPENAI_API_KEY`, `OPENAI_MODEL`, `LLM_TIMEOUT_SECONDS`) |
 | Documentos de exemplo | `data/sample/` (5 arquivos + PDF + DOCX + CSV + XLSX) |
 | Ingestão | loaders retornam `Document` normalizado (`PDFLoader`, `DOCXLoader`, `TabularLoader`); `TextChunker` divide texto com `chunk_size` e `overlap` configuráveis |
+| Vector DB | Qdrant local via `docker compose`; collection criada com `scripts/create_qdrant_collection.py` (`QDRANT_URL`, `QDRANT_COLLECTION_NAME`, `QDRANT_VECTOR_SIZE`) |
 
 > Esta seção deve ser mantida atualizada à medida que o projeto evoluir. O README não substitui o roadmap: ele apresenta o projeto para quem chega ao repositório pela primeira vez.
 
 ## Como executar
 
-Requisitos: Python 3.12+ e [`uv`](https://docs.astral.sh/uv/) instalado.
+Requisitos: Python 3.12+, [`uv`](https://docs.astral.sh/uv/) e Docker (para Qdrant local).
 
 ```bash
 git clone <repository-url>
@@ -147,9 +148,11 @@ Comandos úteis no estado atual:
 uv run pytest
 uv run ruff check .
 uv run uvicorn app.main:app --reload
+docker compose up -d qdrant
+uv run python scripts/create_qdrant_collection.py
 ```
 
-Docker e endpoints adicionais serão documentados nas próximas microetapas do roadmap.
+O Qdrant expõe a API em `http://localhost:6333`. O script de collection é idempotente: cria a collection apenas se ela ainda não existir.
 
 Exemplo de chamada ao chat (requer `OPENAI_API_KEY` configurada ou override em testes):
 
@@ -232,6 +235,9 @@ production-rag/
 │   │   ├── models.py
 │   │   ├── openai_provider.py
 │   │   └── provider.py
+│   ├── vector/
+│   │   ├── __init__.py
+│   │   └── qdrant.py
 │   ├── __init__.py
 │   ├── dependencies.py
 │   ├── main.py
@@ -250,6 +256,7 @@ production-rag/
 │   ├── test_pdf_loader.py
 │   ├── test_sample_documents.py
 │   ├── test_tabular_loader.py
+│   ├── test_qdrant_collection.py
 │   └── test_settings.py
 ├── data/
 │   └── sample/
@@ -263,6 +270,8 @@ production-rag/
 │       ├── sla-suporte-interno.md
 │       └── sla-suporte-interno.xlsx
 ├── scripts/
+│   └── create_qdrant_collection.py
+├── docker-compose.yml
 ├── .cursor/
 │   └── rules/
 ├── .env.example

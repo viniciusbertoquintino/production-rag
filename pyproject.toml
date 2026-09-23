@@ -11,6 +11,7 @@ dependencies = [
     "openpyxl>=3.1",
     "pypdf>=5.1",
     "python-docx>=1.1",
+    "qdrant-client>=1.12",
     "uvicorn[standard]>=0.32",
 ]
 
@@ -31,6 +32,9 @@ packages = ["app"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+markers = [
+    "integration: requires external services such as local Qdrant",
+]
 
 [tool.ruff]
 line-length = 100

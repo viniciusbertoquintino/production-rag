@@ -18,6 +18,8 @@ class Settings(BaseSettings):
     llm_timeout_seconds: float = Field(default=30.0, gt=0)
     qdrant_url: str = Field(default="http://localhost:6333")
     qdrant_api_key: str | None = Field(default=None)
+    qdrant_collection_name: str = Field(default="production_rag_chunks")
+    qdrant_vector_size: int = Field(default=1536, gt=0)
     langfuse_public_key: str | None = Field(default=None)
     langfuse_secret_key: str | None = Field(default=None)
     langfuse_host: str = Field(default="https://cloud.langfuse.com")
