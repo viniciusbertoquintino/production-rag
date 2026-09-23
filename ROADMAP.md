@@ -58,7 +58,7 @@ Construir um RAG corporativo demonstrável, executável localmente e com caminho
 ### Fase 3 — Indexação e retrieval
 - [x] **P1.16** Subir Qdrant via Docker Compose.
   - Pronto quando: collection pode ser criada localmente.
-- [ ] **P1.17** Criar interface `EmbeddingProvider`.
+- [x] **P1.17** Criar interface `EmbeddingProvider`.
   - Pronto quando: embeddings são desacoplados do fornecedor.
 - [ ] **P1.18** Criar script `index_documents.py`.
   - Pronto quando: processa documentos e grava vetores.

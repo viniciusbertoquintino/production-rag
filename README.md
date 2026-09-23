@@ -113,8 +113,8 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 |---|---|
 | Projeto | Production RAG |
 | Status | Em desenvolvimento |
-| Última etapa concluída | P1.16 — Qdrant via Docker Compose |
-| Próxima etapa | P1.17 — interface `EmbeddingProvider` |
+| Última etapa concluída | P1.17 — interface `EmbeddingProvider` |
+| Próxima etapa | P1.18 — script `index_documents.py` |
 | Roadmap | Consulte `ROADMAP.md` |
 | Estratégia | Desenvolvimento incremental |
 | Commits | Conventional Commits |
@@ -126,6 +126,7 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 | Documentos de exemplo | `data/sample/` (5 arquivos + PDF + DOCX + CSV + XLSX) |
 | Ingestão | loaders retornam `Document` normalizado (`PDFLoader`, `DOCXLoader`, `TabularLoader`); `TextChunker` divide texto com `chunk_size` e `overlap` configuráveis |
 | Vector DB | Qdrant local via `docker compose`; collection criada com `scripts/create_qdrant_collection.py` (`QDRANT_URL`, `QDRANT_COLLECTION_NAME`, `QDRANT_VECTOR_SIZE`) |
+| Embeddings | interface `EmbeddingProvider` com `EmbeddingRequest` / `EmbeddingResponse` (adapter concreto na indexação) |
 
 > Esta seção deve ser mantida atualizada à medida que o projeto evoluir. O README não substitui o roadmap: ele apresenta o projeto para quem chega ao repositório pela primeira vez.
 
@@ -238,6 +239,10 @@ production-rag/
 │   ├── vector/
 │   │   ├── __init__.py
 │   │   └── qdrant.py
+│   ├── embeddings/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   └── provider.py
 │   ├── __init__.py
 │   ├── dependencies.py
 │   ├── main.py
@@ -245,6 +250,7 @@ production-rag/
 ├── tests/
 │   ├── __init__.py
 │   ├── test_chunker.py
+│   ├── test_embedding_provider.py
 │   ├── test_chat.py
 │   ├── test_health.py
 │   ├── test_imports.py
