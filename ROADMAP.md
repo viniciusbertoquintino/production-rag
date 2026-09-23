@@ -60,7 +60,7 @@ Construir um RAG corporativo demonstrável, executável localmente e com caminho
   - Pronto quando: collection pode ser criada localmente.
 - [x] **P1.17** Criar interface `EmbeddingProvider`.
   - Pronto quando: embeddings são desacoplados do fornecedor.
-- [ ] **P1.18** Criar script `index_documents.py`.
+- [x] **P1.18** Criar script `index_documents.py`.
   - Pronto quando: processa documentos e grava vetores.
 - [ ] **P1.19** Persistir metadados de origem em cada chunk.
   - Pronto quando: é possível voltar ao arquivo/página original.

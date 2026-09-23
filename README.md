@@ -113,8 +113,8 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 |---|---|
 | Projeto | Production RAG |
 | Status | Em desenvolvimento |
-| Última etapa concluída | P1.17 — interface `EmbeddingProvider` |
-| Próxima etapa | P1.18 — script `index_documents.py` |
+| Última etapa concluída | P1.18 — script `index_documents.py` |
+| Próxima etapa | P1.19 — metadados de origem em cada chunk |
 | Roadmap | Consulte `ROADMAP.md` |
 | Estratégia | Desenvolvimento incremental |
 | Commits | Conventional Commits |
@@ -126,7 +126,8 @@ A regra do projeto é simples: **uma microetapa concluída = uma validação = u
 | Documentos de exemplo | `data/sample/` (5 arquivos + PDF + DOCX + CSV + XLSX) |
 | Ingestão | loaders retornam `Document` normalizado (`PDFLoader`, `DOCXLoader`, `TabularLoader`); `TextChunker` divide texto com `chunk_size` e `overlap` configuráveis |
 | Vector DB | Qdrant local via `docker compose`; collection criada com `scripts/create_qdrant_collection.py` (`QDRANT_URL`, `QDRANT_COLLECTION_NAME`, `QDRANT_VECTOR_SIZE`) |
-| Embeddings | interface `EmbeddingProvider` com `EmbeddingRequest` / `EmbeddingResponse` (adapter concreto na indexação) |
+| Embeddings | `EmbeddingProvider` + `OpenAIEmbeddingProvider` (`OPENAI_EMBEDDING_MODEL`, `EMBEDDING_BATCH_SIZE`) |
+| Indexação | `scripts/index_documents.py` carrega PDF/DOCX/CSV/XLSX, faz chunking e grava vetores no Qdrant (`CHUNK_SIZE`, `CHUNK_OVERLAP`) |
 
 > Esta seção deve ser mantida atualizada à medida que o projeto evoluir. O README não substitui o roadmap: ele apresenta o projeto para quem chega ao repositório pela primeira vez.
 
@@ -151,9 +152,10 @@ uv run ruff check .
 uv run uvicorn app.main:app --reload
 docker compose up -d qdrant
 uv run python scripts/create_qdrant_collection.py
+uv run python scripts/index_documents.py --input-dir data/sample
 ```
 
-O Qdrant expõe a API em `http://localhost:6333`. O script de collection é idempotente: cria a collection apenas se ela ainda não existir.
+O Qdrant expõe a API em `http://localhost:6333`. O script de collection é idempotente: cria a collection apenas se ela ainda não existir. A indexação requer `OPENAI_API_KEY` configurada.
 
 Exemplo de chamada ao chat (requer `OPENAI_API_KEY` configurada ou override em testes):
 
@@ -241,8 +243,15 @@ production-rag/
 │   │   └── qdrant.py
 │   ├── embeddings/
 │   │   ├── __init__.py
+│   │   ├── errors.py
 │   │   ├── models.py
+│   │   ├── openai_provider.py
 │   │   └── provider.py
+│   ├── indexing/
+│   │   ├── __init__.py
+│   │   ├── loaders.py
+│   │   ├── models.py
+│   │   └── pipeline.py
 │   ├── __init__.py
 │   ├── dependencies.py
 │   ├── main.py
@@ -251,6 +260,10 @@ production-rag/
 │   ├── __init__.py
 │   ├── test_chunker.py
 │   ├── test_embedding_provider.py
+│   ├── test_indexing_loaders.py
+│   ├── test_indexing_pipeline.py
+│   ├── test_openai_embedding_provider.py
+│   ├── test_qdrant_store.py
 │   ├── test_chat.py
 │   ├── test_health.py
 │   ├── test_imports.py
@@ -276,7 +289,8 @@ production-rag/
 │       ├── sla-suporte-interno.md
 │       └── sla-suporte-interno.xlsx
 ├── scripts/
-│   └── create_qdrant_collection.py
+│   ├── create_qdrant_collection.py
+│   └── index_documents.py
 ├── docker-compose.yml
 ├── .cursor/
 │   └── rules/
